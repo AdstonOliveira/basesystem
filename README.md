@@ -63,5 +63,6 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ### Tutotriais uteis
 - **[Force Json aways on api.*](https://darkghosthunter.medium.com/laravel-convert-to-json-all-responses-automatically-c4a72b2fd3ac)**
-_ **[Sobre Sanctum](https://laravel.com/docs/8.x/sanctum#api-token-authentication)**
+- **[Sobre Sanctum](https://laravel.com/docs/8.x/sanctum#api-token-authentication)**
+- **[Uso do token](https://medium.com/swlh/api-authentication-using-laravel-sanctum-laravel-8-19ed8b4f124c)**
 
