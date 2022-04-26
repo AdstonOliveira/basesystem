@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\LoginController as ApiLoginController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,18 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware(['forceJson'])->group(function () {
 
-
-
-Route::group(["middleware"=>"auth:sanctum"], function(){
-    Route::get("users", function(Request $request){
-        return User::all()->toJson();
+    Route::middleware('auth:api')->get('/user', function (Request $request) {
+        return $request->user();
     });
+
+
+    Route::post("login", [ApiLoginController::class, "login"])->name("login.api");
+
+    Route::group(["middleware"=>"auth:sanctum"], function(){
+        Route::get("users", function(){
+            return User::all()->toJson();
+        });
+    });
+
 });
-
-
-
-
