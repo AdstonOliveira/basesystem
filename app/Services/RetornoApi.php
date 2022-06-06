@@ -12,7 +12,7 @@ class RetornoApi
 
     public static function paginate(Request $request, $items, $options=[])
     {
-        $urlData = $request->except("sessao", "per_page", "page");
+        $urlData = $request->except("per_page", "page");
         $path = $request->url()."?";
 
         if(count($urlData) > 0){

@@ -23,7 +23,6 @@ Route::middleware(['forceJson'])->group(function () {
         return $request->user();
     });
 
-
     Route::post("login", [ApiLoginController::class, "login"])->name("login.api");
 
     Route::group(["middleware"=>"auth:sanctum"], function(){
