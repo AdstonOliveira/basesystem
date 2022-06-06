@@ -27,7 +27,8 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
 
-        $all = Customer::GetAll();
+        $all = Customer::GetAllWithRelations();
+
         return RetornoApi::paginate($request, $all, []);
     }
 

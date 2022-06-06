@@ -2,17 +2,21 @@
 
 namespace App\Models\Customer;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Base\BaseModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Customer extends Model
+class Customer extends BaseModel
 {
+
+    public function __construct(){
+    }
 
     use SoftDeletes;
     protected $table="customer";
     protected $fillable = ["id", "first_name", "last_name"];
 
+    const RelationToReturn = ["contacts", "documents"];
 
 
     public function contacts(){
@@ -29,9 +33,14 @@ class Customer extends Model
         return self::with(["contacts", "documents"])->get();
     }
 
-    public static function GetAll(){
+    public static function GetAllWithRelations(){
 
-        return self::with(["contacts", "documents"])->get();
+        return self::GetAll(self::RelationToReturn);
+    }
+
+    public static function GetAllWithOutRelations(){
+
+        return self::GetAll();
     }
 
 
