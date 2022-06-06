@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\LoginController as ApiLoginController;
 use App\Models\User;
+use App\Services\RetornoApi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,8 +27,9 @@ Route::middleware(['forceJson'])->group(function () {
     Route::post("login", [ApiLoginController::class, "login"])->name("login.api");
 
     Route::group(["middleware"=>"auth:sanctum"], function(){
+        // Testes
         Route::get("users", function(){
-            return User::all()->toJson();
+            return RetornoApi::paginate(request(), User::all());
         });
     });
 

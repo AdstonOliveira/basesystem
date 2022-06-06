@@ -17,8 +17,6 @@ class LoginController extends Controller
     public function login(LoginApiRequest $request){
         $user = User::where("email", $request->input("email"))->first();
 
-
-
         if (! $user ) {
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],

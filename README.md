@@ -66,3 +66,12 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - **[Sobre Sanctum](https://laravel.com/docs/8.x/sanctum#api-token-authentication)**
 - **[Uso do token](https://medium.com/swlh/api-authentication-using-laravel-sanctum-laravel-8-19ed8b4f124c)**
 
+## USO
+* Login: (GET) api/login
+{
+    email: "email@email.com",
+    password: "pwd",
+    device_name: "device"
+}
+
+* Consumo: Baerer Token
