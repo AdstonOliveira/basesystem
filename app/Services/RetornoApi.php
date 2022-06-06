@@ -50,8 +50,9 @@ class RetornoApi
     public static function RetonaErroCriacao($message){
         return response()->json(
             [
-                "message"=> "Ocorreu um erro ao cadastrar.",
-                "messages"=> $message
+                "message"   => "Ocorreu um erro ao cadastrar.",
+                "success"    => false,
+                "messages"  => $message
             ], 400);
     }
 
@@ -59,7 +60,8 @@ class RetornoApi
         return response()->json(
             [
                 "message"   => "Cadastro efetuado com sucesso!",
-                "object"    => json_encode($created)
+                "success"    => true,
+                "object"    => $created
             ], 200);
     }
 }

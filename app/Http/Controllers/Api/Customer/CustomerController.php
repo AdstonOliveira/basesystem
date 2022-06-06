@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\DB;
 class CustomerController extends Controller
 {
 
-    protected $customer;
-    public function __construct(Customer $costumer)
+    // protected $model;
+    public function __construct()
     {
-        $this->customer = $costumer;
+
     }
     /**
      * Display a listing of the resource.
@@ -50,53 +50,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-
-        DB::beginTransaction();
-        try{
-            $customer = Customer::create([
-                "first_name" => $request->input("first_name"),
-                "last_name" => $request->input("last_name"),
-            ]);
-
-            $documents = $data["documents"];
-
-            foreach($documents as $key => $document){
-                try{
-                    $doc = new Document($document);
-                    $doc->customer_id = $customer->id;
-                    $doc->save();
-
-                }catch(Exception $e){
-                    DB::rollBack();
-                    return RetornoApi::RetonaErroCriacao($e->getMessage());
-                }
-
-            }
-
-            $contacts = $data["contacts"];
-
-            foreach($contacts as $key => $contact){
-                try{
-                    $contact = new Contact($contact);
-                    $contact->customer_id = $customer->id;
-                    $contact->save();
-                }catch(Exception $e){
-                    DB::rollBack();
-
-                    return RetornoApi::RetonaErroCriacao($e->getMessage());
-                }
-            }
-
-            DB::commit();
-            return RetornoApi::RetonaSucessoCriacao($customer->RetornoCriacao());
-
-        }catch(Exception $e){
-            DB::rollBack();
-            return RetornoApi::RetonaErroCriacao($e->getMessage());
-        }
-
-
+        return Customer::Store($request);
     }
 
     /**

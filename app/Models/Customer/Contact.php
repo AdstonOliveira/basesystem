@@ -11,4 +11,5 @@ class Contact extends Model
     use SoftDeletes;
     protected $table = "contact";
     protected $fillable = ["id", "type_id", "customer_id", "contact"];
+    protected $hidden = ["deleted_at", "updated_at"];
 }

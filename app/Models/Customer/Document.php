@@ -12,4 +12,5 @@ class Document extends Model
 
     protected $table = "document";
     protected $fillable = ["id", "type_id", "customer_id", "number"];
+    protected $hidden = ["deleted_at", "updated_at"];
 }
