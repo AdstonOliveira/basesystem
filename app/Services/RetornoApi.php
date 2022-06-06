@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -15,6 +16,7 @@ class RetornoApi
         $urlData = $request->except("per_page", "page");
         $path = $request->url()."?";
 
+
         if(count($urlData) > 0){
             $i = 1;
             foreach($urlData as $key => $input){
@@ -27,6 +29,7 @@ class RetornoApi
                 $i++;
             }
         }
+
         if($request->has("per_page")){
             $perPage = $request->input("per_page");
             $path .= "&per_page=".$request->input("per_page");
@@ -41,5 +44,22 @@ class RetornoApi
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, compact('path'), $options);
+    }
+
+
+    public static function RetonaErroCriacao($message){
+        return response()->json(
+            [
+                "message"=> "Ocorreu um erro ao cadastrar.",
+                "messages"=> $message
+            ], 400);
+    }
+
+    public static function RetonaSucessoCriacao($created){
+        return response()->json(
+            [
+                "message"   => "Cadastro efetuado com sucesso!",
+                "object"    => json_encode($created)
+            ], 200);
     }
 }

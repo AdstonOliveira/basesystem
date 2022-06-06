@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Customer\CustomerController;
 use App\Http\Controllers\Api\LoginController as ApiLoginController;
 use App\Models\User;
 use App\Services\RetornoApi;
@@ -25,10 +26,17 @@ Route::middleware(['forceJson'])->group(function () {
 
     Route::post("login", [ApiLoginController::class, "login"])->name("login.api");
 
+
+
     Route::group(["middleware"=>"auth:sanctum"], function(){
-        // Testes
+
         Route::get("users", function(){
             return RetornoApi::paginate(request(), User::all());
+        });
+
+        Route::group(["prefix"=>"customer"], function(){
+            Route::post("/", [CustomerController::class, "store"]);
+            Route::get("/", [CustomerController::class, "index"]);
         });
     });
 
